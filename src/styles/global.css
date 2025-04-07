@@ -1,0 +1,34 @@
+/* Yksinkertaiset globaalit tyylit aloitukseen */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Perus layout tyylejä voi lisätä tänne tai layout-komponentin omaan css-tiedostoon */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+canvas {
+  display: block; /* Estää ylimääräisen tilan canvasin alla */
+  width: 100%;
+  height: 100%;
+}
