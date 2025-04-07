@@ -1,0 +1,187 @@
+/* --- Global Theming Variables (Optional but recommended) --- */
+:root {
+    --bg-color: #1a1d24; /* Deep dark blue/charcoal */
+    --text-color: #e0e0e0; /* Light gray for text */
+    --text-color-muted: #a0a0a0; /* Muted gray */
+    --accent-color: #00bcd4; /* Cyan/Teal accent */
+    --accent-color-hover: #00e5ff;
+    --card-bg: #252a33; /* Slightly lighter background for cards/links */
+    --card-border: #3a3f4a;
+    --header-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean system fonts */
+    --body-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    max-width: 1100px; /* Wider container */
+    margin: 0 auto;
+    padding: 30px 40px;
+    font-family: var(--body-font);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    min-height: 100vh; /* Ensure dark theme covers viewport */
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.header h1 {
+    font-family: var(--header-font);
+    font-size: 2.8em;
+    font-weight: 300; /* Lighter weight for elegance */
+    color: #ffffff; /* Pure white for main title */
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.header h2 {
+    font-family: var(--header-font);
+    font-size: 1.5em;
+    font-weight: 400;
+    color: var(--accent-color); /* Use accent for subtitle */
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.header .subtitle { /* Added class for better targeting */
+    font-size: 1.1em;
+    color: var(--text-color-muted);
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.section {
+    margin-bottom: 50px;
+}
+
+.section h2 {
+    font-family: var(--header-font);
+    font-size: 1.8em;
+    font-weight: 500;
+    color: #ffffff;
+    border-bottom: 1px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    display: inline-block; /* Allow border to fit content */
+}
+
+.section p {
+    font-size: 1.05em;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 25px;
+}
+
+.moduleGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust minmax for card size */
+    gap: 20px;
+}
+
+.moduleLink {
+    display: flex; /* Use flex for icon alignment */
+    align-items: center; /* Center items vertically */
+    gap: 15px; /* Space between icon and text */
+    padding: 20px 25px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px; /* Slightly more rounded */
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500; /* Semi-bold */
+    text-align: left; /* Align text left */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.moduleLink:hover {
+    background-color: #313742; /* Slightly lighter on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-color); /* Highlight border on hover */
+    color: #ffffff; /* Brighter text on hover */
+}
+
+.moduleName {
+    flex-grow: 1; /* Allow text to take remaining space */
+}
+
+
+/* --- Icon Placeholders (using CSS content) --- */
+/* Style these further or replace with SVG background images / Font Awesome */
+.iconPlaceholder {
+    display: inline-block;
+    width: 24px; /* Fixed width for alignment */
+    height: 24px;
+    line-height: 24px; /* Center vertically */
+    text-align: center;
+    font-size: 1.4em; /* Adjust icon size */
+    color: var(--accent-color); /* Use accent color for icons */
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+/* Specific Icons (replace with better symbols or background-images) */
+.iconSpacetime::before { content: '🌌'; } /* Galaxy */
+.iconSheets::before { content: '📚'; } /* Books/Layers */
+.iconParticles::before { content: '⚛'; } /* Atom */
+.iconFields::before { content: '⚡'; } /* Lightning/Field */
+.iconGeometry::before { content: '📐'; } /* Triangle ruler / Geometry */
+.iconHierarchy::before { content: '📶'; } /* Hierarchy/Signal */
+.iconZEO::before { content: '⏳'; } /* Hourglass/Time */
+.iconPdf::before { content: '📄'; } /* Document */
+
+
+.researchLinks {
+    display: flex;
+    flex-direction: column; /* Stack links vertically */
+    gap: 12px; /* Space between links */
+    align-items: flex-start; /* Align left */
+}
+
+.researchLink {
+    display: inline-flex; /* Use inline-flex for icon alignment */
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-color);
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.researchLink:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color); /* Dark text on accent hover */
+    border-color: var(--accent-color-hover);
+}
+
+.researchLink:hover .iconPlaceholder {
+    color: var(--bg-color); /* Match text color on hover */
+}
+
+
+.note {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: var(--text-color-muted);
+    border-left: 3px solid var(--card-border);
+    padding-left: 15px;
+    background-color: rgba(0, 0, 0, 0.1); /* Slight background for note */
+    padding: 10px 15px;
+    border-radius: 0 4px 4px 0;
+}
+
+.footer {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--text-color-muted);
+    border-top: 1px solid var(--card-border);
+    padding-top: 30px;
+}

@@ -1,4 +1,5 @@
 /* Yksinkertaiset globaalit tyylit aloitukseen */
+/*
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,15 +11,16 @@ body {
   color: #333;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+*/
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 /* Perus layout tyylejä voi lisätä tänne tai layout-komponentin omaan css-tiedostoon */
@@ -32,3 +34,33 @@ canvas {
   width: 100%;
   height: 100%;
 }
+
+/* src/styles/global.css */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Oxygen',
+    'Ubuntu', Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; /* Keep system fonts as fallback */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #1a1d24; /* Match container background */
+}
+
+/* Basic reset for links */
+a {
+    color: #00bcd4; /* Default accent color for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* Ensure root takes full height */
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* You might remove specific background/color from global.css if they conflict */

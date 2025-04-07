@@ -1,0 +1,309 @@
+/* src/styles/ModuleView.module.css */
+
+/* Käytetään samoja globaaleja muuttujia kuin IntroductionView:ssä */
+/* Varmista, että nämä tai vastaavat ovat määritelty esim. global.css :root */
+/* :root {
+    --bg-color: #1a1d24;
+    --text-color: #e0e0e0;
+    --text-color-muted: #a0a0a0;
+    --accent-color: #00bcd4;
+    --accent-color-hover: #00e5ff;
+    --card-bg: #252a33;
+    --card-border: #3a3f4a;
+    --header-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --body-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+} */
+
+/* --- Yleinen moduulinäkymän container --- */
+.moduleContainer {
+    padding: 20px 30px;
+    font-family: var(--body-font, sans-serif); /* Käytä globaalia tai fallback */
+    color: var(--text-color, #e0e0e0);
+    /* Taustaväri tulee yleensä globaalista body-tyylistä tai Layoutista */
+}
+
+/* --- Moduulin Otsikko --- */
+.moduleTitle {
+    font-family: var(--header-font, sans-serif);
+    font-size: 2.2em;
+    font-weight: 400;
+    color: #ffffff; /* Valkoinen otsikko */
+    border-bottom: 1px solid var(--accent-color, #00bcd4);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* --- Kuvaustekstit --- */
+.description {
+    /* Default styles when visible */
+    font-size: 1.05em;
+    line-height: 1.7;
+    color: var(--text-color, #e0e0e0);
+    margin-bottom: 1em;
+    padding: 15px; /* Add some padding */
+    background-color: rgba(37, 42, 51, 0.5); /* Slightly different background */
+    border: 1px solid var(--card-border, #3a3f4a);
+    border-radius: 5px;
+    max-height: 500px; /* Set a max-height for transition */
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out, opacity 0.4s ease-in-out; /* Smooth transition */
+    opacity: 1;
+}
+
+.descriptionHidden {
+    max-height: 0; /* Collapse when hidden */
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-width: 0 1px; /* Keep side borders but not top/bottom */
+    overflow: hidden;
+    opacity: 0;
+}
+
+
+.description p,
+.description ul {
+    margin-bottom: 1em;
+    /* Prevent margin collapse issues when hidden */
+    overflow: hidden;
+}
+
+.description ul {
+    padding-left: 25px;
+}
+
+.description li {
+    margin-bottom: 0.5em;
+}
+
+.description strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.description code {
+    background-color: var(--card-bg, #252a33);
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.95em;
+    color: var(--accent-color, #00bcd4);
+}
+
+.description .subtleNote {
+     font-size: 0.9em;
+     color: var(--text-color-muted, #a0a0a0);
+     font-style: italic;
+}
+
+/* --- Toggle Button --- */
+.toggleButton {
+    display: inline-block; /* Allow margin-bottom */
+    background: none;
+    border: none;
+    color: var(--accent-color, #00bcd4);
+    cursor: pointer;
+    font-size: 0.95em;
+    margin-bottom: 15px; /* Space below button */
+    padding: 5px 0; /* Vertical padding only */
+    border-bottom: 1px dashed var(--accent-color, #00bcd4);
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.toggleButton:hover {
+    color: var(--accent-color-hover, #00e5ff);
+    border-bottom-color: var(--accent-color-hover, #00e5ff);
+}
+
+/* Add an indicator arrow */
+.toggleButton::after {
+    content: ' ▼'; /* Default arrow down (shown) */
+    display: inline-block;
+    margin-left: 5px;
+    transition: transform 0.3s ease-out;
+}
+
+.toggleButtonHidden::after {
+    transform: rotate(-90deg); /* Arrow points right (hidden) */
+}
+
+
+/* --- Canvas-kontaineri --- */
+.canvasContainer {
+    width: 100%;
+    /* Korkeus asetetaan yleensä inline-tyylillä moduulissa */
+    /* height: 60vh; */
+    border: 1px solid var(--card-border, #3a3f4a);
+    margin-top: 15px;
+    margin-bottom: 25px; /* Lisää tilaa kontrollipaneeliin */
+    position: relative; /* Tarvitaan absoluuttisille elementeille (kuten info overlay) */
+    background-color: #000000; /* Musta tausta canvasille oletuksena */
+    border-radius: 4px; /* Pieni pyöristys */
+    overflow: hidden; /* Varmistaa, että sisältö pysyy rajoissa */
+}
+
+/* Canvas itse (jos tarvitsee suoraan kohdistaa) */
+.canvasContainer canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* --- Kontrollipaneeli --- */
+.controlsPanel {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: var(--card-bg, #252a33);
+    border-radius: 8px;
+    border: 1px solid var(--card-border, #3a3f4a);
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */ /* Muokattu responsiivisemmaksi */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px 25px; /* Rivi- ja sarakeväli */
+    align-items: center;
+}
+
+/* --- Yksittäinen kontrolliryhmä (label + input) --- */
+.controlGroup {
+    /* Ei tarvita välttämättä, jos grid toimii hyvin */
+}
+
+.controlsPanel .label {
+    font-weight: bold;
+    font-size: 0.95em;
+    display: block; /* Oma rivi */
+    margin-bottom: 6px;
+    color: var(--text-color, #8e8e8e);
+}
+
+.controlsPanel .label sub {
+    font-size: 0.8em; /* Pienempi alaindeksi */
+}
+
+.sliderContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Väli sliderin ja arvon välillä */
+}
+
+/* Input-elementit (yleinen) */
+.controlsPanel input[type="range"],
+.controlsPanel select {
+    width: 100%; /* Täytä grid-solu */
+    padding: 8px;
+    background-color: #313742; /* Tummempi input-tausta */
+    border: 1px solid var(--card-border, #3a3f4a);
+    border-radius: 4px;
+    color: var(--text-color, #e0e0e0);
+    font-size: 0.95em;
+    box-sizing: border-box; /* Varmista, ettei padding/border ylitä leveyttä */
+}
+
+.controlsPanel select {
+    appearance: none; /* Poista oletusnuoli */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23a0a0a0' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.207l-4.6-4.6L4 6l4 4 4-4 .6.6z'/%3E%3C/svg%3E"); /* Oma nuoli (värinä muted text) */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 35px; /* Tilaa nuolelle */
+}
+
+/* Range Slider -tyylit (yksinkertaistettu, vaatii prefixejä selaintukeen) */
+.controlsPanel input[type="range"] {
+    appearance: none;
+    height: 8px;
+    background: #444; /* Track color */
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0; /* Nollaa padding range-inputille */
+}
+
+.controlsPanel input[type="range"]::-webkit-slider-thumb { /* Chrome/Safari */
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--accent-color, #00bcd4);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.controlsPanel input[type="range"]::-moz-range-thumb { /* Firefox */
+    width: 18px;
+    height: 18px;
+    background: var(--accent-color, #00bcd4);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+.controlsPanel input[type="range"]:focus {
+    outline: none; /* Poista focus-outline */
+    box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.5); /* Lisää oma focus-tyyli */
+}
+
+
+.valueDisplay {
+    font-family: monospace;
+    min-width: 45px; /* Varmista riittävä tila */
+    text-align: right;
+    color: var(--text-color-muted, #a0a0a0);
+    font-size: 0.9em;
+    flex-shrink: 0; /* Estä arvon kutistuminen */
+}
+
+/* --- Buttonit --- */
+.controlsPanel button {
+    padding: 10px 15px;
+    background-color: #4a515e; /* Napin tausta */
+    color: var(--text-color, #e0e0e0);
+    border: 1px solid var(--card-border, #3a3f4a);
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95em;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.controlsPanel button:hover:not(:disabled) {
+    background-color: #5a6372;
+    border-color: #6a7382;
+}
+
+.controlsPanel button:active:not(:disabled) {
+    background-color: #3e444f;
+}
+
+.controlsPanel button:disabled {
+    background-color: #313742;
+    color: #777;
+    cursor: not-allowed;
+    border-color: #444;
+}
+
+/* --- Info Overlay (Modules 1 & 3) --- */
+.infoOverlay {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(26, 29, 36, 0.85); /* Tausta kuten container, mutta läpinäkyvämpi */
+    color: var(--text-color, #e0e0e0);
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: monospace;
+    pointer-events: none; /* Ei estä klikkausta canvasille */
+    z-index: 10;
+    max-width: calc(100% - 20px); /* Estä ylitys */
+    border: 1px solid var(--card-border, #3a3f4a);
+}
+
+.infoOverlay div {
+    margin-bottom: 4px;
+}
+.infoOverlay div:last-child {
+    margin-bottom: 0;
+}
+.infoOverlay sub {
+    font-size: 0.8em;
+}
