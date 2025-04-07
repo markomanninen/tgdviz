@@ -21,7 +21,7 @@ const FieldsMEsView: React.FC = () => {
     const sceneRef = useRef<THREE.Scene | null>(null);
     const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
     const controlsRef = useRef<OrbitControls | null>(null);
-    const clockRef = useRef<Clock>(new Clock(false)); // Aloita pysäytettynä
+    const clockRef = useRef<THREE.Clock | null>(null);
     const animationIdRef = useRef<number>();
     const gridHelperRef = useRef<THREE.GridHelper | null>(null); // Ref ruudukolle
     const isInitializedRef = useRef<boolean>(false);

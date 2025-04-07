@@ -14,7 +14,7 @@ import {
     Line2
 } from 'three/examples/jsm/lines/Line2.js';
 // Erilliset importit selkeyden vuoksi, vaikka THREE.* toimisi myös
-import { Vector3, Color, ConeGeometry, MeshBasicMaterial, Mesh, Group, TorusGeometry, BufferGeometry, BufferAttribute, PointsMaterial, Points, PerspectiveCamera, Scene, WebGLRenderer, AmbientLight } from 'three';
+import { Vector3, Color, ConeGeometry, MeshBasicMaterial, Mesh, Group, Material, BufferGeometry, BufferAttribute, PointsMaterial, Points, PerspectiveCamera, Scene, WebGLRenderer, AmbientLight } from 'three';
 import viewStyles from '@/styles/ModuleView.module.css';
 
 // --- Vakiot ---
@@ -120,12 +120,13 @@ const ZEOView: React.FC = () => {
                         if (!cdGroupRef.current && anim.newPos) {
                              createCD(anim.newPos); // Luo uusi
                              // Aseta uuden opacity aluksi 0
+                             const cdGroupRef = useRef<THREE.Group | null>(null);
                              const group = cdGroupRef.current;
-                             if(group) {
-                                 group.traverse((child) => { // Käy läpi kaikki osat
-                                     if ((child as Mesh).material) {
-                                         ((child as Mesh).material as Material).opacity = 0;
-                                         ((child as Mesh).material as Material).needsUpdate = true;
+                             if (group && group instanceof THREE.Group) {
+                                 group.traverse((child: THREE.Object3D) => {
+                                     if ((child as THREE.Mesh).material) {
+                                         ((child as THREE.Mesh).material as THREE.Material).opacity = 0;
+                                         ((child as THREE.Mesh).material as THREE.Material).needsUpdate = true;
                                      }
                                  });
                              }
@@ -159,7 +160,7 @@ const ZEOView: React.FC = () => {
             };
             animate();
         } catch (error) { console.error("Error during initial setup:", error); }
-        const handleResize = () => { if (!rendererRef.current || !cameraRef.current || !currentMount) return; const w=currentMount.clientWidth,h=currentMount.clientHeight; ca.aspect=w/h; ca.updateProjectionMatrix(); rendererRef.current.setSize(w,h); if (futureEdgeRef.current?.material) (futureEdgeRef.current.material as LineMaterial).resolution.set(w, h); if (pastEdgeRef.current?.material) (pastEdgeRef.current.material as LineMaterial).resolution.set(w, h); }; window.addEventListener('resize', handleResize);
+        const handleResize = () => { if (!rendererRef.current || !cameraRef.current || !currentMount) return; const w=currentMount.clientWidth,h=currentMount.clientHeight; cameraRef.current.aspect=w/h; cameraRef.current.updateProjectionMatrix(); rendererRef.current.setSize(w,h); if (futureEdgeRef.current?.material) (futureEdgeRef.current.material as LineMaterial).resolution.set(w, h); if (pastEdgeRef.current?.material) (pastEdgeRef.current.material as LineMaterial).resolution.set(w, h); }; window.addEventListener('resize', handleResize);
         return () => { isInitializedRef.current = false; if (animationIdRef.current) cancelAnimationFrame(animationIdRef.current); window.removeEventListener('resize', handleResize); controlsRef.current?.dispose(); cleanupSceneContent(); rendererRef.current?.dispose(); if (currentMount && rendererElement && currentMount.contains(rendererElement)) currentMount.removeChild(rendererElement); rendererRef.current = null; sceneRef.current = null; cameraRef.current = null; controlsRef.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cleanupSceneContent, createCD]);

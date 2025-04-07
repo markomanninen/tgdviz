@@ -1,1 +1,1 @@
-export { default as ParticlesView } from './ParticlesView.tsx';
+export { default as ParticlesView } from './ParticlesView';

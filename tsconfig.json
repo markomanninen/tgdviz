@@ -20,6 +20,6 @@
       "@/*": ["src/*"] // Esimerkki polkualiakselle
     }
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

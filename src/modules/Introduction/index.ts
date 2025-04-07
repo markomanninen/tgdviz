@@ -1,1 +1,1 @@
-export { default as IntroductionView } from './IntroductionView.tsx';
+export { default as IntroductionView } from './IntroductionView';

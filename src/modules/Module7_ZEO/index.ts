@@ -1,1 +1,1 @@
-export { default as ZEOView } from './ZEOView.tsx';
+export { default as ZEOView } from './ZEOView';

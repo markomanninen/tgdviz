@@ -93,7 +93,7 @@ const KahlerCP2View: React.FC = () => {
     const meshRef = useRef<THREE.Mesh | null>(null); // Ref CP2-metaforalle
     const animationIdRef = useRef<number>();
     const isInitializedRef = useRef<boolean>(false);
-    
+
     const [isDescriptionVisible, setIsDescriptionVisible] = useState<boolean>(false);
 
     // --- Cleanup ---
@@ -182,7 +182,7 @@ const KahlerCP2View: React.FC = () => {
 
         } catch (error) { console.error("Error during initial setup:", error); }
 
-        const handleResize = () => { if (!rendererRef.current || !cameraRef.current || !currentMount) return; const w=currentMount.clientWidth,h=currentMount.clientHeight; ca.aspect=w/h; ca.updateProjectionMatrix(); rendererRef.current.setSize(w,h); }; window.addEventListener('resize', handleResize);
+        const handleResize = () => { if (!rendererRef.current || !cameraRef.current || !currentMount) return; const w=currentMount.clientWidth,h=currentMount.clientHeight; cameraRef.current.aspect=w/h; cameraRef.current.updateProjectionMatrix(); rendererRef.current.setSize(w,h); }; window.addEventListener('resize', handleResize);
 
         return () => {
             isInitializedRef.current = false; if (animationIdRef.current) cancelAnimationFrame(animationIdRef.current); window.removeEventListener('resize', handleResize); controlsRef.current?.dispose();

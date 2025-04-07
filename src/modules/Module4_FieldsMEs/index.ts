@@ -1,1 +1,1 @@
-export { default as FieldsMEsView } from './FieldsMEsView.tsx';
+export { default as FieldsMEsView } from './FieldsMEsView';

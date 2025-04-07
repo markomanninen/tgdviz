@@ -1,1 +1,1 @@
-export { default as ManySheetedView } from './ManySheetedView.tsx';
+export { default as ManySheetedView } from './ManySheetedView';
